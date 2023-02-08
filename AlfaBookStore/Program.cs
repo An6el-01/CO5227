@@ -35,6 +35,7 @@ using (var scope = app.Services.CreateScope())
 
     var context = services.GetRequiredService<AlfaBookStoreContext>();
     context.Database.EnsureCreated();
+    DbInitializer.Initialize(context);
 }
 
 app.UseHttpsRedirection();

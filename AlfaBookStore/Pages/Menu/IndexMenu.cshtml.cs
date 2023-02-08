@@ -7,19 +7,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AlfaBookStore.Data;
 using AlfaBookStore.model;
+using Microsoft.Extensions.Logging;
 
 namespace AlfaBookStore.Pages.Menu
 {
     public class IndexModel : PageModel
     {
-        private readonly AlfaBookStore.Data.AlfaBookStoreContext _context;
+        private readonly AlfaBookStoreContext _context;
+        public IList<Book> Book { get; set; } = default!;
+        private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(AlfaBookStore.Data.AlfaBookStoreContext context)
+        public IndexModel(AlfaBookStore.Data.AlfaBookStoreContext context, ILogger<IndexModel> logger)
         {
             _context = context;
+            _logger = logger;
         }
-
-        public IList<Book> Book { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
@@ -28,5 +30,6 @@ namespace AlfaBookStore.Pages.Menu
                 Book = await _context.Books.ToListAsync();
             }
         }
+
     }
 }

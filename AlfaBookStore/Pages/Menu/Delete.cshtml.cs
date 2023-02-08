@@ -29,7 +29,7 @@ namespace AlfaBookStore.Pages.Menu
                 return NotFound();
             }
 
-            var books = await _context.Books.FirstOrDefaultAsync(m => m.id == id);
+            var books = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
 
             if (books == null)
             {

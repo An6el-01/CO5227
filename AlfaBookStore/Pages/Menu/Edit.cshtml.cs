@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AlfaBookStore.Data;
 using AlfaBookStore.model;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace AlfaBookStore.Pages.Menu
 {
@@ -30,7 +31,7 @@ namespace AlfaBookStore.Pages.Menu
                 return NotFound();
             }
 
-            var books =  await _context.Books.FirstOrDefaultAsync(m => m.id == id);
+            var books =  await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
             if (books == null)
             {
                 return NotFound();
@@ -56,7 +57,7 @@ namespace AlfaBookStore.Pages.Menu
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BooksExists(Book.id))
+                if (!BooksExists(Book.Id))
                 {
                     return NotFound();
                 }
@@ -66,12 +67,25 @@ namespace AlfaBookStore.Pages.Menu
                 }
             }
 
+            foreach (var file in Request.Form.Files)
+            {
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+                Book.Image = ms.ToArray();
+
+                ms.Close();
+                ms.Dispose();
+            }
+
+            _context.Books.Add(Book);
+            await _context.SaveChangesAsync();
+
             return RedirectToPage("./Index");
         }
 
         private bool BooksExists(int id)
         {
-          return _context.Books.Any(e => e.id == id);
+          return _context.Books.Any(e => e.Id == id);
         }
     }
 }

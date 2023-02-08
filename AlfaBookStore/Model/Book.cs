@@ -7,15 +7,16 @@ namespace AlfaBookStore.model
     public class Book
     {
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
         [StringLength(30)]
-        public string title { get; set; }
+        public string Title { get; set; }
         [StringLength(255)]
-        public string author { get; set; }
+        public string Author { get; set; }
         [StringLength(255)]
         [DataType(DataType.Currency)]
         [Column(TypeName = "Money")]
-        public Nullable<decimal> price { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public byte[]? Image { get; set; }
     }
 }
 

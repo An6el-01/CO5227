@@ -36,6 +36,21 @@ namespace AlfaBookStore.Pages.Menu
                 return Page();
             }
 
+          //Trying to figure out why when I edit the money on the creat and edit page it takes it in as a decimal and tries to convert it to string instead of money???
+            //decimal decimalValue = (decimal)Books.Price;
+            //System.Data.SqlTypes.SqlMoney moneyValue = (System.Data.SqlTypes.SqlMoney)decimalValue;
+
+
+            foreach (var file in Request.Form.Files) 
+            { 
+                MemoryStream ms= new MemoryStream();
+                file.CopyTo(ms);
+                Books.Image = ms.ToArray();
+
+                ms.Close();
+                ms.Dispose();
+            }
+
             _context.Books.Add(Books);
             await _context.SaveChangesAsync();
 
