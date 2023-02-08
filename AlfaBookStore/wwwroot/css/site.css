@@ -5,110 +5,36 @@ body {
     letter-spacing: 0.05em;
 }
 
-.dropdown {
-    position: absolute;
-    margin-top: 10px;
-    float: left;
-    width: 100%;
-    height: 100%;
-    background-color: #000000;
-    padding: 50 px;
-    width: 17%;
-    bottom: 0px;
-}
-
-.Logo {
-    position: relative;
-    margin-top: 20px;
-    left: 31px;
-    height: 150px;
-    width: 150px;
+.nav {
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 .link {
-    display: block;
-    width: 60px;
-}
-
-#linkIndex {
-    position: relative;
-    margin-top: 20px;
-    background-color: #00000;
-    color: green;
-    padding: 14px 25px;
-    width: 76%;
-    text-align: center;
     text-decoration: none;
-    display: inline-block;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 20px;
 }
 
-    #linkIndex:hover, #linkindex:active {
-        background-color: white;
-    }
-
-#linkLibrary {
-    position: relative;
-    margin-top: 20px;
-    background-color: #00000;
-    color: green;
-    padding: 14px 25px;
-    width: 76%;
-    text-align: center;
-    text-decoration: none;
+.navText {
     display: inline-block;
+    padding: 10px;
 }
 
-    #linkLibrary:hover, #linkLibrary:active {
-        background-color: white;
-    }
-
-#linkCheckout {
-    position: relative;
-    margin-top: 20px;
-    background-color: #000000;
-    color: Green;
-    padding: 14px 25px;
-    width: 76%;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+#myMenu .nav .link:hover {
+    background-color: #555555;
 }
 
-    #linkCheckout:hover, #linkCheckout:active {
-        background-color: white;
-    }
-
-#linkLog-In {
-    position: relative;
-    margin-top: 20px;
-    background-color: #000000;
-    color: Green;
-    padding: 14px 25px;
-    width: 76%;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
-
-    #linkLog-In:hover, #linkLog-In:active {
-        background-color: white;
-    }
-
-#linkContact-Us {
-    position: relative;
-    margin-top: 20px;
-    background-color: #000000;
-    color: Green;
-    padding: 14px 25px;
-    width: 76%;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
-
-    #linkContact-Us:hover, #linkContact-Us:active {
-        background-color: white;
-    }
 
 .PageTitle {
     position: relative;

@@ -9,31 +9,35 @@
 <body>
     <div>
         @RenderBody()
-        <div id="myMenu" class="dropdown">
+        <header>
+            <div id="myMenu" class="dropdown border-botttom mb-3" >
             <nav class="nav">
-                <img class="Logo" src="Img/Alpha.png" alt="Logo" width="100" height="100" />
                
-                <a class="link" id="linkIndex" asp-page="/Index" class="navLink">
+                <a class="link" asp-page="/Index" class="navLink">
                     <span class="navText">Index</span>
                 </a>
 
-                <a class="link" id=linkLibrary asp-page="/Menu" class="navLink">
+                <a class="link" asp-page="/Menu/Index" class="navLink">
                     <span class="navText">Library</span>
                 </a>
 
-                <a class="link" id="linkCheckout" asp-page="/Checkout" class="navLink">
+                <a class="link" asp-page="/Checkout" class="navLink">
                     <span class="navText">Checkout</span>
                 </a>
 
-                <a class="link" id="linkLog-In" asp-page="/Registration" class="navlink">
+                <a class="link" asp-page="/Registration" class="navlink">
                     <span class="navText">Log-In</span>
                 </a>
 
-                <a class="link" id="linkContact-Us" asp-page="/Contact" class="navlink">
+                <a class="link" asp-page="/Contact" class="navlink">
                     <span class="navText">Contact Us</span>
                 </a>
             </nav>
-        </div>     
+        </div>
+            @RenderSection("Scripts", required: false)
+
+        </header>
+        
         
     </div>
 </body>
