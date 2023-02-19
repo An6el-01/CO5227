@@ -1,21 +1,35 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AlfaBookStore.model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using AlfaBookStore.Data;
 
-namespace AlfaBookStore.Pages
-{
-    public class IndexModel : PageModel
-    {
+namespace AlfaBookStore.Pages;
 
-        private readonly ILogger<IndexModel> _logger;
+    public class IndexModel : PageModel { 
+    
 
-        public IndexModel(ILogger<IndexModel> logger)
+        private readonly AlfaBookStoreContext _context;
+
+        public IndexModel(AlfaBookStoreContext context)
         {
-            _logger = logger;
+            _context = context;
+        }
+
+        public IList<Books> Books { get; set; }
+
+        // Add this property to your class
+        public IList<Books> BooksOfTheWeek
+        {
+            get
+            {
+                // Get the two books you want to display as "Books of the Week"
+                return _context.Books.Take(2).ToList();
+            }
         }
 
         public void OnGet()
         {
-
+            Books = _context.Books.ToList();
         }
+
     }
-}

@@ -4,18 +4,19 @@ using System.Data.SqlClient;
 
 namespace AlfaBookStore.model
 {
-    public class Book
+    /* This model was set up so that I could link the table in the databse that handles all the data for the books
+       To my project. This way i could extract and insert values to the columns in the database*/
+    public class Books
     {
         [Key]
-        public int Id { get; set; }
-        [StringLength(30)]
+        public int ID { get; set; }
+        [StringLength(255)]
         public string Title { get; set; }
         [StringLength(255)]
         public string Author { get; set; }
-        [StringLength(255)]
         [DataType(DataType.Currency)]
         [Column(TypeName = "Money")]
-        public Nullable<decimal> Price { get; set; }
+        public decimal Price { get; set; }
         public byte[]? Image { get; set; }
     }
 }

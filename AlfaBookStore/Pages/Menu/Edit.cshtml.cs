@@ -22,7 +22,7 @@ namespace AlfaBookStore.Pages.Menu
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
+        public Books Book { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,7 +31,7 @@ namespace AlfaBookStore.Pages.Menu
                 return NotFound();
             }
 
-            var books =  await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+            var books =  await _context.Books.FirstOrDefaultAsync(m => m.ID == id);
             if (books == null)
             {
                 return NotFound();
@@ -51,13 +51,27 @@ namespace AlfaBookStore.Pages.Menu
 
             _context.Attach(Book).State = EntityState.Modified;
 
+            // handle uploaded file
+            if (Request.Form.Files != null && Request.Form.Files.Count > 0)
+            {
+                var file = Request.Form.Files[0];
+                if (file != null && file.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await file.CopyToAsync(memoryStream);
+                        Book.Image = memoryStream.ToArray();
+                    }
+                }
+            }
+
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BooksExists(Book.Id))
+                if (!BooksExists(Book.ID))
                 {
                     return NotFound();
                 }
@@ -67,25 +81,13 @@ namespace AlfaBookStore.Pages.Menu
                 }
             }
 
-            foreach (var file in Request.Form.Files)
-            {
-                MemoryStream ms = new MemoryStream();
-                file.CopyTo(ms);
-                Book.Image = ms.ToArray();
-
-                ms.Close();
-                ms.Dispose();
-            }
-
-            _context.Books.Add(Book);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Menu/IndexMenu");
         }
+
 
         private bool BooksExists(int id)
         {
-          return _context.Books.Any(e => e.Id == id);
+          return _context.Books.Any(e => e.ID == id);
         }
     }
 }

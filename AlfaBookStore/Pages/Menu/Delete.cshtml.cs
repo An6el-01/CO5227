@@ -20,7 +20,7 @@ namespace AlfaBookStore.Pages.Menu
         }
 
         [BindProperty]
-      public Book Books { get; set; }
+      public Books Books { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,7 +29,7 @@ namespace AlfaBookStore.Pages.Menu
                 return NotFound();
             }
 
-            var books = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+            var books = await _context.Books.FirstOrDefaultAsync(m => m.ID == id);
 
             if (books == null)
             {
@@ -57,7 +57,7 @@ namespace AlfaBookStore.Pages.Menu
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Menu/IndexMenu");
         }
     }
 }

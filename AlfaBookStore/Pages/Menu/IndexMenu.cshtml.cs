@@ -14,7 +14,7 @@ namespace AlfaBookStore.Pages.Menu
     public class IndexModel : PageModel
     {
         private readonly AlfaBookStoreContext _context;
-        public IList<Book> Book { get; set; } = default!;
+        public IList<Books> Book { get; set; } = default!;
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(AlfaBookStore.Data.AlfaBookStoreContext context, ILogger<IndexModel> logger)

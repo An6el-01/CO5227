@@ -19,7 +19,7 @@ namespace AlfaBookStore.Pages.Menu
             _context = context;
         }
 
-      public Book Books { get; set; }
+      public Books Books { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,7 +28,7 @@ namespace AlfaBookStore.Pages.Menu
                 return NotFound();
             }
 
-            var books = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+            var books = await _context.Books.FirstOrDefaultAsync(m => m.ID == id);
             if (books == null)
             {
                 return NotFound();

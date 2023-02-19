@@ -5,44 +5,45 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="PageTitle">Index</h1>
+<h1 class="PageTitle">Library</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Price)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Book) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="sloganBtn-container"> <!--Wrapped the slogan and the 'create' button in a div in order to make it easier for styling and create some space-->
+    <h3 class="slogan">
+        Reading made easy - shop our online library today
+    </h3>
+
+    <form asp-page="Create">
+        <button type="submit" class="btn btn-primary">Create New</button>
+    </form>
+</div>
+
+<div class="item-contaner">
+    @foreach (var item in Model.Book) //We use a 'foreach loop' to loop through all the books in the table and use 'modelItem' to extra all the data of that specific item
+    {
+        <div class="item-capsule">
+            <div class="book">
+                <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
+                <p>@Html.DisplayFor(modelItem => item.Author)</p>
+                <p>@Html.DisplayFor(modelItem => item.Price)</p>
+                @{
+                    try
+                    {
+                        <img src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.Image))" /> //needed to add this line in order to convert the image stored from varBinary data to an actual Image
+                    }
+                    catch
+                    {
+                        <h1>No Image Provided</h1>
+                    }
+                }
+            </div>
+
+            <p> <!--Links are here to provide the admin some functionality for editing & deleting items-->
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </p>
+        </div>
+    }
+</div>
+
+

@@ -4,10 +4,10 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" /> <!--In here we link our CSS page in orde to add some styling to our Razor Pages-->
 </head>
 <body>
-    <div>
+    <div> <!-- I added a div and wrapped all the contents of the navigation in it in order to make it easier for styling in CSS-->
         @RenderBody()
         <header>
             <div id="myMenu" class="dropdown border-botttom mb-3" >
@@ -25,20 +25,24 @@
                     <span class="navText">Checkout</span>
                 </a>
 
-                <a class="link" asp-page="/Registration" class="navlink">
-                    <span class="navText">Log-In</span>
-                </a>
-
-                <a class="link" asp-page="/Contact" class="navlink">
+                    <a class="link" asp-page="/Contact" class="navlink">
                     <span class="navText">Contact Us</span>
                 </a>
+                    <partial name="_LoginPartial" /> <!-- uses the LoginPartial html file to link up the Log In and Registration pages-->
             </nav>
+            
         </div>
             @RenderSection("Scripts", required: false)
 
         </header>
-        
-        
     </div>
+    <footer> <!--Added a footer in order to add some good aesthetics to the website as well as some easy access to the admin functionality-->
+        <div class="footer-links">
+            <a href="http://validator.w3.org/check?uri=referer">Validate HTML</a>
+            <a href="http://jigsaw.w3.org/css-validator/check/referer">Validate CSS</a>
+            <a asp-page="/Menu/IndexMenu">Admin</a>
+        </div>
+    </footer>
+
 </body>
 </html>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +19,27 @@ namespace AlfaBookStore.Pages.Menu
         {
             _context = context;
         }
+        public bool IsImageValid(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0)
+            {
+                return false;
+            }
+
+            try
+            {
+                using (var ms = new MemoryStream(imageData))
+                {
+                    var image = System.Drawing.Image.FromStream(ms);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
 
         public IActionResult OnGet()
         {
@@ -25,10 +47,22 @@ namespace AlfaBookStore.Pages.Menu
         }
 
         [BindProperty]
-        public Book Books { get; set; }
-        
+        public Books Books { get; set; } = new Books();
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+
+        public IActionResult GetBookImage(int id)
+        {
+            var book = _context.Books.Find(id);
+            if (book == null || book.Image == null)
+            {
+                return NotFound();
+            }
+            return File(book.Image, "image/jpg");
+        }
+
+
         public async Task<IActionResult> OnPostAsync()
         {
           if (!ModelState.IsValid)
@@ -36,11 +70,7 @@ namespace AlfaBookStore.Pages.Menu
                 return Page();
             }
 
-          //Trying to figure out why when I edit the money on the creat and edit page it takes it in as a decimal and tries to convert it to string instead of money???
-            //decimal decimalValue = (decimal)Books.Price;
-            //System.Data.SqlTypes.SqlMoney moneyValue = (System.Data.SqlTypes.SqlMoney)decimalValue;
-
-
+         
             foreach (var file in Request.Form.Files) 
             { 
                 MemoryStream ms= new MemoryStream();
@@ -54,7 +84,7 @@ namespace AlfaBookStore.Pages.Menu
             _context.Books.Add(Books);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Menu/IndexMenu");
         }
     }
 }

@@ -4,21 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AlfaBookStore.model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AlfaBookStore.Data
 {
-    public class AlfaBookStoreContext : DbContext
+    public class AlfaBookStoreContext : IdentityDbContext
     {
+
         public AlfaBookStoreContext (DbContextOptions<AlfaBookStoreContext> options)
             : base(options)
         {
         }
 
-        public DbSet<Book> Books { get; set; }
+        public DbSet<Books> Books { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Book>().ToTable("Book");
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Books>().ToTable("Books");
         }
 
     }
